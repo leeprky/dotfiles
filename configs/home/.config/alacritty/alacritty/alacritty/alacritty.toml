@@ -1,0 +1,3 @@
+# iNiR wallpaper theming
+[general]
+import = ["~/.config/alacritty/colors.toml"]

@@ -1,0 +1,19 @@
+// ─────────────────────────────────────────────────────────────────────────────
+// 95 — HiDPI / Retina display overrides
+// ─────────────────────────────────────────────────────────────────────────────
+// This file is automatically activated on Apple Silicon (aarch64) MacBooks
+// by setup.sh. On Intel/Nobara systems it is safely ignored.
+//
+// Uncomment and adjust the output name and scale for your display.
+// Run `niri msg outputs` to find your output name (e.g. eDP-1, eDP-2, etc.)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// MacBook built-in Retina display — typical 2x scale for ~14"/16" screens.
+// output "eDP-1" {
+//     scale 2
+// }
+//
+// For external monitors at different DPIs, add additional output blocks:
+// output "HDMI-A-1" {
+//     scale 1
+// }

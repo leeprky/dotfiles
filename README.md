@@ -10,10 +10,25 @@ curl -fsSL https://raw.githubusercontent.com/leeprky/dotfiles/main/setup.sh | ba
 
 The script auto-detects your OS and architecture (x86_64 vs aarch64) and applies the correct configuration.
 
+### Recommended: Install iNiR separately first
+
+Run the bootstrap **after** installing iNiR so the script doesn't touch your iNiR state:
+
+```bash
+# 1. Install iNiR
+git clone --depth 1 https://github.com/snowarch/inir.git ~/.config/quickshell/inir
+cd ~/.config/quickshell/inir && sudo make install
+
+# 2. Run dotfiles bootstrap (skips iNiR setup)
+curl -fsSL https://raw.githubusercontent.com/leeprky/dotfiles/main/setup.sh | bash -s -- --skip-inir
+```
+
+This avoids overwriting niri configs and iNiR runtime state.
+
 ### Asahi Fedora (Apple Silicon MacBook)
 
 Running the same command on an Asahi Fedora install automatically:
-- Detects aarch64 architecture
+- Detects aarch64 architecture (or `VARIANT_ID=asahi-remix`)
 - Skips x86-only packages (NVIDIA, Intel/AMD firmware, GRUB, etc.)
 - Installs Asahi-specific packages (kernel-asahi, asahi-firmware, apple-bce, etc.)
 - Configures HiDPI output scaling for Retina displays (uncomment in `config.d/95-hidpi.kdl`)
@@ -26,7 +41,7 @@ Running the same command on an Asahi Fedora install automatically:
 | `--skip-packages` | Skip DNF package installation |
 | `--skip-flatpak`  | Skip Flatpak installation |
 | `--skip-snap`     | Skip Snap installation |
-| `--skip-inir`     | Skip iNiR shell setup |
+| `--skip-inir`     | Skip iNiR shell setup (use when iNiR is already installed) |
 | `--skip-asahi`    | Skip Asahi-specific setup (auto-detected) |
 
 ```bash
@@ -41,10 +56,10 @@ curl -fsSL https://raw.githubusercontent.com/leeprky/dotfiles/main/setup.sh | ba
 3. Installs Asahi-specific packages on aarch64 (kernel, firmware, drivers)
 4. Installs Flatpak apps (Zen Browser, VSCodium, OBS, Proton VPN/Mail/Pass, etc.)
 5. Installs Snap packages
-6. Clones this repo and symlinks all configs with GNU Stow
+6. Clones this repo and symlinks configs with GNU Stow (skips niri — managed by iNiR)
 7. Sets system locale (`en_GB.utf8`), keymap (`gb`), timezone (`Europe/London`), hostname
 8. Installs user tools: eza (aarch64 binary), uv, starship, spicetify
-9. Sets up the iNiR shell (cloned from [snowarch/inir](https://github.com/snowarch/inir))
+9. Sets up the iNiR shell (cloned from [snowarch/inir](https://github.com/snowarch/inir)) — use `--skip-inir` to leave iNiR untouched
 10. Installs custom fonts and updates font cache
 11. Sets fish as the default shell
 12. Enables systemd services
@@ -66,10 +81,6 @@ curl -fsSL https://raw.githubusercontent.com/leeprky/dotfiles/main/setup.sh | ba
 │       ├── .zshrc
 │       ├── .config/
 │       │   ├── fish/
-│       │   ├── niri/
-│       │   │   ├── config.d/
-│       │   │   │   ├── 10-input-and-cursor.kdl  # Mac keyboard options
-│       │   │   │   └── 95-hidpi.kdl             # Retina display scaling
 │       │   ├── starship.toml
 │       │   ├── kitty/
 │       │   ├── foot/
@@ -78,6 +89,13 @@ curl -fsSL https://raw.githubusercontent.com/leeprky/dotfiles/main/setup.sh | ba
 │       └── .local/
 │           ├── bin/      # Custom scripts (inir launcher, etc.)
 │           └── share/fonts/
+│
+├── packages/
+│   ├── inir-overlays/    # Patches applied on top of upstream iNiR
+│   │   ├── defaults/niri/config.d/  # Custom niri window rules & animations
+│   │   ├── modules/                 # QML overrides (Firefox toggle, etc.)
+│   │   └── scripts/colors/         # Firefox theme generator
+│   └── inir-state/       # Snapshot of iNiR CLI config & theme metadata
 ```
 
 ## Updating Your Snapshot
@@ -102,7 +120,16 @@ After reboot on any platform:
 3. Run `inir cheatsheet` to see all keybindings
 
 **Asahi Fedora specific:**
-- Uncomment the output scale in `~/.config/niri/config.d/95-hidpi.kdl` for Retina displays
 - Verify GPU acceleration: `glxinfo -B` or `vulkaninfo`
 - Check secure boot: `asahi-sbctl status`
-- Mac keyboard: Fn row maps to F1-F12 by default; see `10-input-and-cursor.kdl` for Option/Command swap options
+- Mac keyboard: Fn row maps to F1-F12 by default; see `/usr/local/share/quickshell/inir/defaults/niri/config.d/10-input-and-cursor.kdl` for Option/Command swap options
+- HiDPI: enable output scale in the iNiR display settings or in `~/.config/niri/config.d/95-hidpi.kdl`
+
+## Notes
+
+**niri configs** are managed by iNiR, not by the stow package. To customize keybinds, startup processes, or window rules, edit the files in `~/.config/niri/config.d/` directly — they won't be overwritten by the bootstrap script.
+
+**iNiR overlays** (in `packages/inir-overlays/`) are applied on top of the upstream iNiR repo when `setup_inir` runs. If you install iNiR separately and use `--skip-inir`, apply them manually:
+```bash
+rsync -a ~/.dotfiles/packages/inir-overlays/ ~/.config/quickshell/inir/
+```

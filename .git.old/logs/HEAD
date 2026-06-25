@@ -1,0 +1,13 @@
+0000000000000000000000000000000000000000 d8af5bf638e9b83388ed59fdfb12ee2dda24841a Lee Parky <lspky@protonmail.com> 1781805203 +0100	clone: from https://github.com/leeprky/dotfiles.git
+d8af5bf638e9b83388ed59fdfb12ee2dda24841a a3f835f8f41083824e018fb3e848ddd1cb4564da Lee Parky <lspky@protonmail.com> 1781805309 +0100	pull --ff-only origin main: Fast-forward
+a3f835f8f41083824e018fb3e848ddd1cb4564da fb269079c3eb3a78b36664bc454f02300f3db55f Lee Parky <lspky@protonmail.com> 1781805410 +0100	pull --ff-only origin main: Fast-forward
+fb269079c3eb3a78b36664bc454f02300f3db55f b888cbe45a96627e9cb99f68624c45e9b2cbcb20 Lee Parky <lspky@protonmail.com> 1781805478 +0100	pull --ff-only origin main: Fast-forward
+b888cbe45a96627e9cb99f68624c45e9b2cbcb20 cd20c113d8fda7342d2433b4cf8882737b09c98f Lee Parky <lspky@protonmail.com> 1781805546 +0100	pull --ff-only origin main: Fast-forward
+cd20c113d8fda7342d2433b4cf8882737b09c98f cd20c113d8fda7342d2433b4cf8882737b09c98f Lee Parky <lspky@protonmail.com> 1782390420 +0100	reset: moving to HEAD
+cd20c113d8fda7342d2433b4cf8882737b09c98f 538e9ccbcc85ae5001df49dca996e87b21c4ff32 Lee Parky <lspky@protonmail.com> 1782390420 +0100	pull --ff-only origin main: Fast-forward
+538e9ccbcc85ae5001df49dca996e87b21c4ff32 b8d298fd6477d4725c23c7b879507bf8f17d84c9 Lee Parky <lspky@protonmail.com> 1782390429 +0100	commit: Add Asahi Fedora (aarch64) support
+b8d298fd6477d4725c23c7b879507bf8f17d84c9 c3050ac589195219b228c9f147a11a4da7c2814b Lee Parky <71296232+leeprky@users.noreply.github.com> 1782390967 +0100	commit: Add full iNiR state, overlays, and wallpapers for plug-and-play
+c3050ac589195219b228c9f147a11a4da7c2814b 896c1f2e2fc00f33585f98a2ec7ccee46c4c2407 Lee Parky <lspky@protonmail.com> 1782393958 +0100	commit: Fix pack.sh dotfiles path, add missing config captures, improve setup.sh robustness
+0000000000000000000000000000000000000000 b5cf3b85d40e477a9c5f4df8c7c14fdb1d00a0d4 Lee Parky <lspky@protonmail.com> 1782394204 +0100	commit (initial): Initial commit: dotfiles bootstrap for Fedora/Asahi
+b5cf3b85d40e477a9c5f4df8c7c14fdb1d00a0d4 b5cf3b85d40e477a9c5f4df8c7c14fdb1d00a0d4 Lee Parky <lspky@protonmail.com> 1782394209 +0100	reset: moving to b5cf3b85d40e477a9c5f4df8c7c14fdb1d00a0d4
+b5cf3b85d40e477a9c5f4df8c7c14fdb1d00a0d4 896c1f2e2fc00f33585f98a2ec7ccee46c4c2407 Lee Parky <lspky@protonmail.com> 1782394211 +0100	checkout: moving from temp-main to main

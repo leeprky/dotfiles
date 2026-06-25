@@ -1,0 +1,18 @@
+{
+  "source": "image",
+  "source_path": "/home/leeparky04/Pictures/Wallpapers/wallhaven-k82ypq.png",
+  "seed_color": "#3C3473",
+  "mode": "dark",
+  "scheme": "scheme-tonal-spot",
+  "transparent": false,
+  "soften": true,
+  "term_harmony": 0.4,
+  "term_saturation": 0.65,
+  "term_brightness": 0.6,
+  "term_bg_brightness": 0.5,
+  "term_fg_boost": 0.35,
+  "harmonize_threshold": 100.0,
+  "color_strength": 1.0,
+  "blend_bg_fg": true,
+  "generated_by": "generate_colors_material.py"
+}

@@ -1,0 +1,27 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Secrets (never commit these!)
+configs/home/.ssh/id_*
+configs/home/.ssh/known_hosts
+configs/home/.config/brave*
+configs/home/.config/BraveSoftware/
+configs/home/.config/VSCodium/Cookies*
+configs/home/.config/VSCodium/Network*
+
+# Large generated files
+configs/home/.local/share/fonts/*.ttf
+configs/home/.config/spicetify/css-map.json
+
+# Temp artifacts
+packages/cargo-packages.txt
+packages/npm-packages.txt
+
+# Large binaries (install via curl instead)
+configs/home/.local/bin/uv
+configs/home/.local/bin/uvx
+configs/home/.local/bin/eza

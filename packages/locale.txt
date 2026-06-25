@@ -1,0 +1,3 @@
+System Locale: LANG=en_GB.utf8
+    VC Keymap: gb
+   X11 Layout: gb

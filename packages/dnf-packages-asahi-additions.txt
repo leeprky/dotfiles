@@ -1,0 +1,23 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Asahi Fedora — additional DNF packages
+# ─────────────────────────────────────────────────────────────────────────────
+# These are installed ON TOP of the main dnf-packages.txt list on aarch64.
+# Lines starting with # are ignored.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Asahi repositories & platform
+asahi-repos
+asahi-firmware
+kernel-asahi
+
+# Apple Silicon drivers & firmware
+apple-bce
+apple-bcm
+apple-dcp
+
+# Apple MacBook hardware support
+asahi-scripts
+spice-vdagent
+
+# x86 emulation layer (needed for some x86-only apps/binaries)
+muvm

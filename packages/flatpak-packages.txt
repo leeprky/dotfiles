@@ -1,0 +1,3 @@
+com.github.tchx84.Flatseal
+io.github.kolunmi.Bazaar
+io.github.kolunmi.Bazaar

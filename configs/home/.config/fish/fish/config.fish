@@ -26,4 +26,3 @@ end
 fish_add_path /home/leeparky04/.opencode/bin
 
 fish_add_path /home/leeparky04/.spicetify
-fish_add_path "$HOME/.opencode/bin"

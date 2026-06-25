@@ -119,7 +119,7 @@ detect_os() {
     info "Arch: $ARCH"
 
     case "$OS_ID" in
-        nobara|fedora|rhel|centos)
+        nobara|fedora|fedora-asahi-remix|rhel|centos)
             PKG_MANAGER="dnf"
             info "Package manager: DNF"
             ;;
@@ -134,7 +134,7 @@ detect_os() {
         IS_NOBARA=1
         info "Nobara Linux detected — including Nobara-specific packages"
     fi
-    if [[ "$ARCH" == "aarch64" ]]; then
+    if [[ "$ARCH" == "aarch64" || "${VARIANT_ID:-}" == "asahi-remix" ]]; then
         IS_ASAHI=1
         info "Apple Silicon (aarch64) detected — applying Asahi Fedora configuration"
     fi
@@ -353,32 +353,15 @@ stow_configs() {
         }
     fi
 
-    # Remove targets under .config/ that conflict with stow
-    # (orphaned symlinks, real dirs from old configs, etc.)
-    # Skip targets already properly stowed (symlink to current stow tree)
-    while IFS= read -r -d '' pkg_entry; do
-        local rel="${pkg_entry#$stow_dir/home/}"
-        [[ "$rel" == ".config/"* && "$rel" != ".config" ]] || continue
-        local target="$HOME/$rel"
-        # If it's a symlink already pointing into our stow tree, keep it
-        if [[ -L "$target" ]]; then
-            local link_target
-            link_target="$(readlink "$target")"
-            case "$link_target" in
-                */configs/home/"$rel"|*"/.dotfiles/configs/home/$rel") continue ;;
-            esac
-        fi
-        if [[ -e "$target" || -L "$target" ]]; then
-            rm -rf "$target"
-        fi
-    done < <(find "$stow_dir/home" -print0)
-
     cd "$stow_dir"
 
-    # Use --adopt to handle existing files (overwrites with repo version)
-    # Use --no-folding to create individual symlinks (not dir symlinks)
+    # Use --no-folding to create individual symlinks (not dir symlinks).
+    # Do NOT use --adopt — that moves existing files into the stow tree
+    # and can overwrite committed dotfiles with local versions.
+    # Instead, --restow will unlink/re-link stow-managed files only and
+    # leave pre-existing files (like niri configs) untouched.
     if [[ -d "home" ]]; then
-        if stow --verbose=1 --target="$HOME" --adopt --no-folding --restow home 2>&1; then
+        if stow --verbose=1 --target="$HOME" --no-folding --restow home 2>&1; then
             ok "Home configs linked"
         else
             warn "Stow encountered errors — check for conflicts above"
